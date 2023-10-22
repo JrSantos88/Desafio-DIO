@@ -1,0 +1,168 @@
+
+[2]
+0s
+import pandas as pd
+
+[3]
+0s
+df = pd.read_csv("/content/drive/MyDrive/Datasets/drinks.csv")
+[4]
+0s
+df.head()
+output
+
+[5]
+3s
+df = df.rename(columns = {"country": "Pais", "beer_servings": "Porções de cerveja", "spirit_servings": "Bebidas espirituais", "wine_servings": "Porções de vinho", "total_litres_of_pure_alcohol": "Litros total de alcool" })
+[7]
+0s
+df.head()
+output
+
+[8]
+0s
+df.shape
+output
+(193, 5)
+[9]
+0s
+df.columns
+output
+Index(['Pais', 'Porções de cerveja', 'Bebidas espirituais', 'Porções de vinho',
+       'Litros total de alcool'],
+      dtype='object')
+[11]
+0s
+df.dtypes
+output
+Pais                       object
+Porções de cerveja          int64
+Bebidas espirituais         int64
+Porções de vinho            int64
+Litros total de alcool    float64
+dtype: object
+[13]
+0s
+df.tail(5)
+output
+
+[14]
+0s
+df.describe
+output
+<bound method NDFrame.describe of             Pais  Porções de cerveja  Bebidas espirituais  Porções de vinho  \
+0    Afghanistan                   0                    0                 0   
+1        Albania                  89                  132                54   
+2        Algeria                  25                    0                14   
+3        Andorra                 245                  138               312   
+4         Angola                 217                   57                45   
+..           ...                 ...                  ...               ...   
+188    Venezuela                 333                  100                 3   
+189      Vietnam                 111                    2                 1   
+190        Yemen                   6                    0                 0   
+191       Zambia                  32                   19                 4   
+192     Zimbabwe                  64                   18                 4   
+
+     Litros total de alcool  
+0                       0.0  
+1                       4.9  
+2                       0.7  
+3                      12.4  
+4                       5.9  
+..                      ...  
+188                     7.7  
+189                     2.0  
+190                     0.1  
+191                     2.5  
+192                     4.7  
+
+[193 rows x 5 columns]>
+[15]
+0s
+df["Pais"].unique()
+output
+array(['Afghanistan', 'Albania', 'Algeria', 'Andorra', 'Angola',
+       'Antigua & Barbuda', 'Argentina', 'Armenia', 'Australia',
+       'Austria', 'Azerbaijan', 'Bahamas', 'Bahrain', 'Bangladesh',
+       'Barbados', 'Belarus', 'Belgium', 'Belize', 'Benin', 'Bhutan',
+       'Bolivia', 'Bosnia-Herzegovina', 'Botswana', 'Brazil', 'Brunei',
+       'Bulgaria', 'Burkina Faso', 'Burundi', "Cote d'Ivoire",
+       'Cabo Verde', 'Cambodia', 'Cameroon', 'Canada',
+       'Central African Republic', 'Chad', 'Chile', 'China', 'Colombia',
+       'Comoros', 'Congo', 'Cook Islands', 'Costa Rica', 'Croatia',
+       'Cuba', 'Cyprus', 'Czech Republic', 'North Korea', 'DR Congo',
+       'Denmark', 'Djibouti', 'Dominica', 'Dominican Republic', 'Ecuador',
+       'Egypt', 'El Salvador', 'Equatorial Guinea', 'Eritrea', 'Estonia',
+       'Ethiopia', 'Fiji', 'Finland', 'France', 'Gabon', 'Gambia',
+       'Georgia', 'Germany', 'Ghana', 'Greece', 'Grenada', 'Guatemala',
+       'Guinea', 'Guinea-Bissau', 'Guyana', 'Haiti', 'Honduras',
+       'Hungary', 'Iceland', 'India', 'Indonesia', 'Iran', 'Iraq',
+       'Ireland', 'Israel', 'Italy', 'Jamaica', 'Japan', 'Jordan',
+       'Kazakhstan', 'Kenya', 'Kiribati', 'Kuwait', 'Kyrgyzstan', 'Laos',
+       'Latvia', 'Lebanon', 'Lesotho', 'Liberia', 'Libya', 'Lithuania',
+       'Luxembourg', 'Madagascar', 'Malawi', 'Malaysia', 'Maldives',
+       'Mali', 'Malta', 'Marshall Islands', 'Mauritania', 'Mauritius',
+       'Mexico', 'Micronesia', 'Monaco', 'Mongolia', 'Montenegro',
+       'Morocco', 'Mozambique', 'Myanmar', 'Namibia', 'Nauru', 'Nepal',
+       'Netherlands', 'New Zealand', 'Nicaragua', 'Niger', 'Nigeria',
+       'Niue', 'Norway', 'Oman', 'Pakistan', 'Palau', 'Panama',
+       'Papua New Guinea', 'Paraguay', 'Peru', 'Philippines', 'Poland',
+       'Portugal', 'Qatar', 'South Korea', 'Moldova', 'Romania',
+       'Russian Federation', 'Rwanda', 'St. Kitts & Nevis', 'St. Lucia',
+       'St. Vincent & the Grenadines', 'Samoa', 'San Marino',
+       'Sao Tome & Principe', 'Saudi Arabia', 'Senegal', 'Serbia',
+       'Seychelles', 'Sierra Leone', 'Singapore', 'Slovakia', 'Slovenia',
+       'Solomon Islands', 'Somalia', 'South Africa', 'Spain', 'Sri Lanka',
+       'Sudan', 'Suriname', 'Swaziland', 'Sweden', 'Switzerland', 'Syria',
+       'Tajikistan', 'Thailand', 'Macedonia', 'Timor-Leste', 'Togo',
+       'Tonga', 'Trinidad & Tobago', 'Tunisia', 'Turkey', 'Turkmenistan',
+       'Tuvalu', 'Uganda', 'Ukraine', 'United Arab Emirates',
+       'United Kingdom', 'Tanzania', 'USA', 'Uruguay', 'Uzbekistan',
+       'Vanuatu', 'Venezuela', 'Vietnam', 'Yemen', 'Zambia', 'Zimbabwe'],
+      dtype=object)
+[17]
+0s
+Paraguay = df.loc[df["Pais"] == "Paraguay"]
+Paraguay.head()
+output
+
+[19]
+0s
+df.groupby("Pais")["Pais"].nunique()
+output
+Pais
+Afghanistan    1
+Albania        1
+Algeria        1
+Andorra        1
+Angola         1
+              ..
+Venezuela      1
+Vietnam        1
+Yemen          1
+Zambia         1
+Zimbabwe       1
+Name: Pais, Length: 193, dtype: int64
+[21]
+0s
+df.groupby("Porções de cerveja") ["Litros total de alcool"].mean()
+output
+Porções de cerveja
+0       0.40
+1       1.75
+2       0.30
+3       0.10
+5       0.40
+       ...  
+343    11.90
+346    11.30
+347     8.90
+361    11.80
+376     6.80
+Name: Litros total de alcool, Length: 130, dtype: float64
+[24]
+0s
+df["Litros total de alcool"].sum()
+output
+910.4000000000001
+[ ]
